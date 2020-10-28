@@ -3,6 +3,7 @@ import Armas.*
 class Familia{
 	var integrantes
 	var don
+	var traiciones = #{}
 	
 	method integranteMasArmado(){
 		return self.integrantesVivos().max({ integrante => integrante.cantidadArmas() })
@@ -45,5 +46,25 @@ class Familia{
 	
 	method subordinadoMasLeal(){
 		return integrantes.max({integrante=> integrante.lealtad()})
+	}
+	
+	method aniadirTraicion(traicion){
+		traiciones.add(traicion)
+	}
+	
+	method lealtadPromedio(){
+		return (integrantes.sum({integrante=> integrante.lealtad()})) / self.cantidadIntegrantes()
+	}
+	
+	method cantidadIntegrantes(){
+		return integrantes.size()
+	}
+	
+	method aniadirIntegrante(integrante){
+		integrantes.add(integrante)
+	}
+	
+	method quitarIntegrante(integrante){
+		integrantes.remove(integrante)
 	}
 }

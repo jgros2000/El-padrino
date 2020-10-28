@@ -77,6 +77,16 @@ class Mafioso {
 	method aumentarLealtad(porcentaje){
 		lealtad += (lealtad * porcentaje) / 100
 	}
+	
+	method ajusticiar(){
+		//Lo que se supone que deba hacer
+	}
+	
+	method cambiarFamilia(familia){
+		familia.aniadirIntegrante(self)
+		rango = soldado
+		lealtad = 100
+	}
 }
 
 class Don{
