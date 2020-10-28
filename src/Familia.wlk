@@ -14,4 +14,5 @@ class Familia{
 	method repartirRevolver(){
 		integrantes.forEach({integrante => integrante.aniadirArma(new Revolver(cantidadBalas = 6))})
 	}
+	
 }

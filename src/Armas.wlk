@@ -19,6 +19,10 @@ class Revolver{
 	method tieneBalas(){
 		return cantidadBalas > 0
 	}
+	
+	method tieneUnaSolaBala(){
+		return cantidadBalas == 1
+	}
 }
 
 object cuerdaPianoDeCalidad{
