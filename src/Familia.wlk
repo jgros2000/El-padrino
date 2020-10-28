@@ -1,4 +1,5 @@
 import Mafioso.*
+import Armas.*
 class Familia{
 	var integrantes
 	
@@ -8,5 +9,9 @@ class Familia{
 	
 	method integrantesVivos(){
 		return integrantes.filter({ integrante => !integrante.estaDurmiendoConLosPeces() })
+	}
+	
+	method repartirRevolver(){
+		integrantes.forEach({integrante => integrante.aniadirArma(new Revolver(cantidadBalas = 6))})
 	}
 }

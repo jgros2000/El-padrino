@@ -25,4 +25,8 @@ class Mafioso {
 	method morir(){
 		estaVivo = false
 	}
+	
+	method aniadirArma(arma){
+		armas.add(arma)
+	}
 }
