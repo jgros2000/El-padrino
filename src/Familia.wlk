@@ -15,4 +15,11 @@ class Familia{
 		integrantes.forEach({integrante => integrante.aniadirArma(new Revolver(cantidadBalas = 6))})
 	}
 	
+	method atacarFamilia(familia){
+		integrantes.forEach({integrante => integrante.atacarFamilia(familia)})
+	}
+	
+	method tieneIntegrantesVivos(){
+		return self.integrantesVivos().size() > 0
+	}
 }
