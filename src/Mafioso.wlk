@@ -1,6 +1,7 @@
-/** First Wollok example */
-object wollok {
-	method howAreYou() {
-		return 'I am Wolloktastic!'
+class Mafioso {
+	var estaVivo = true
+	
+	method estaDurmiendoConLosPeces() {
+		return !estaVivo
 	}
 }
