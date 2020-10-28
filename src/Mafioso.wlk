@@ -1,5 +1,6 @@
 import Armas.*
 class Mafioso {
+	var nombre
 	var estaVivo = true
 	var armas = []
 	var estaHerido
@@ -53,6 +54,8 @@ class Mafioso {
 	}
 	
 	method atacarSegunRango(victima){
+		if (self.esDonVito())
+			rango.atacarA(victima,armas)
 		rango.atacarA(victima,armas)
 	}
 	
@@ -86,6 +89,10 @@ class Mafioso {
 		familia.aniadirIntegrante(self)
 		rango = soldado
 		lealtad = 100
+	}
+	
+	method esDonVito(){
+		return nombre == "Vito"
 	}
 }
 
