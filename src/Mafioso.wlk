@@ -3,6 +3,8 @@ class Mafioso {
 	var estaVivo = true
 	var armas = []
 	var estaHerido
+	var rango
+	var property lealtad
 	
 	method estaDurmiendoConLosPeces() {
 		return !estaVivo
@@ -31,7 +33,9 @@ class Mafioso {
 		armas.add(arma)
 	}
 	
-	method sabeDespachar()
+	method sabeDespachar(){
+		rango.sabeDespachar(self)
+	}
 	
 	method tieneArmaSutil(){
 		return self.tieneCuerdaDePiano() || self.tieneRevolverConUnaBala()
@@ -48,45 +52,86 @@ class Mafioso {
 		return armas.any({arma => arma.tieneUnaSolaBala()})
 	}
 	
-	method atacarA(victima)
+	method atacarSegunRango(victima){
+		rango.atacarA(victima,armas)
+	}
 	
 	method atacarFamilia(familia){
 		if (familia.tieneIntegrantesVivos())
-			self.atacarA(familia.integranteMasArmado())
+			self.atacarSegunRango(familia.integranteMasArmado())
+	}
+	
+	method ascenderPuesto(){
+		if (rango.puedeAscender(self))
+			self.ascender()
+	}
+	
+	method ascender(){
+		rango = rango.ascenso()
+	}
+	
+	method tieneMasDeCincoArmas(){
+		return armas.size() > 5
+	}
+	
+	method aumentarLealtad(porcentaje){
+		lealtad += (lealtad * porcentaje) / 100
 	}
 }
 
-class Don inherits Mafioso{
+class Don{
 	
 	var subordinados = #{}
 	
-	override method sabeDespachar(){
+	method puedeAscender(mafioso){
+		return false
+	}
+	
+	method sabeDespachar(mafioso){
 		return true
 	}
 	
-	override method atacarA(victima){
+	method atacarA(victima){
 		subordinados.anyOne({subordinado => subordinado.atacarA(victima)})
 	}
 }
 
-class Subjefe inherits Don{
+class Subjefe{
 	
-	override method sabeDespachar(){
+	var subordinados = #{}
+	
+	method ascenso(){
+		return new Don(subordinados = subordinados)
+	}
+	
+	method puedeAscender(mafioso){
+		return false
+	}
+	
+	method sabeDespachar(mafioso){
 		return subordinados.any({subordinado => subordinado.sabeDespachar()})
 	}
 	
-	override method atacarA(victima){
+	method atacarA(victima,armas){
 		armas.anyOne({arma => arma.herirA(victima)})
 	}
 }
 
-class Soldado inherits Mafioso{
+object soldado{
 	
-	override method sabeDespachar(){
-		return self.tieneArmaSutil()
+	method ascenso(){
+		return new Subjefe()
 	}
 	
-	override method atacarA(victima){
+	method puedeAscender(mafioso){
+		return mafioso.tieneMasDeCincoArmas()
+	}
+	
+	method sabeDespachar(mafioso){
+		return mafioso.tieneArmaSutil()
+	}
+	
+	method atacarA(victima,armas){
 		armas.first().herirA(victima)
 	}
 }
